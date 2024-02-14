@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deleteUser } from "./Userslace";
 import { useEffect, useState } from "react";
 
@@ -8,9 +8,13 @@ export const UserList = () => {
     const dispatch = useDispatch()
     const[rechercher,setrech] = useState('')
     const [filtred,setfiltred] = useState([])
+    const nav = useNavigate('')
+
     useEffect(() => setfiltred(data.filter(e=>e.nom.toLowerCase().includes(rechercher.toLowerCase())||e.prenom.toLowerCase().includes(rechercher.toLowerCase()))), [rechercher, data]);
     const supprimer =(id)=>{
-        dispatch(deleteUser({id:id}))
+            dispatch(deleteUser({id:id}))
+            nav('/')
+        
     }
     return (
         <div className="container py-4">
