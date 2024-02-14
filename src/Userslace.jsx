@@ -15,12 +15,18 @@ const UserSlice = createSlice({
       state.push(action.payload);
     },
     updateUser: (state, action) => {
-      const user = state.find(e => e.id === action.payload.id);
-      if (user) {
-        user.nom = action.payload.nom;
-        user.prenom = action.payload.prenom;
-      }
-    },
+        return state.map(user => {
+            if (user.id === action.payload.id) {
+                return {
+                    ...user,
+                    nom: action.payload.nom,
+                    prenom: action.payload.prenom
+                };
+            }
+            return user;
+        });
+    }
+    ,
     deleteUser: (state, action) => {
       return state.filter(e => e.id !== action.payload.id);
     }
